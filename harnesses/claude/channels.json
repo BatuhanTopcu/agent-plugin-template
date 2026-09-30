@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "team-channel": {
+      "command": "node",
+      "args": ["${user_config.channel_server_script}"]
+    }
+  },
+  "channels": [
+    {
+      "server": "team-channel",
+      "displayName": "Team channel",
+      "userConfig": {
+        "channel_server_script": {
+          "type": "file",
+          "title": "Channel MCP server script",
+          "description": "Absolute path to your real Node.js MCP channel server. It must advertise claude/channel and handle its own authentication and sender authorization.",
+          "required": true
+        }
+      }
+    }
+  ]
+}

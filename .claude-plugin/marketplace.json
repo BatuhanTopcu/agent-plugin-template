@@ -1,0 +1,15 @@
+{
+  "name": "example-agent-plugin-marketplace",
+  "owner": {
+    "name": "Your team"
+  },
+  "metadata": {
+    "description": "A single-repository agent plugin template for Codex, Claude Code, pi, Cursor, and OpenCode V2."
+  },
+  "plugins": [
+    {
+      "name": "example-agent-plugin",
+      "source": "."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "claude": {
+    "outputStyles": true,
+    "themes": false,
+    "lsp": false,
+    "workflows": false,
+    "channels": false,
+    "monitors": false,
+    "executables": false,
+    "evals": false,
+    "mainAgent": false,
+    "statusLine": false
+  },
+  "pi": { "theme": false, "ui": false },
+  "opencode": { "theme": false, "ui": false }
+}

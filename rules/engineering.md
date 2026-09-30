@@ -1,0 +1,9 @@
+# Engineering rules
+
+- Read project instructions and comparable implementations before changing code.
+- Choose the simplest complete solution and reuse existing dependencies.
+- Keep concerns separate and avoid speculative abstractions.
+- Preserve unrelated user changes.
+- Keep credentials in client configuration or environment variables.
+- Use existing verification commands. Do not introduce a test framework into a project that has none.
+- Verify behavior before reporting completion, and state any limitation precisely.

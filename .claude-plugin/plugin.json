@@ -1,0 +1,19 @@
+{
+  "name": "example-agent-plugin",
+  "version": "0.1.0",
+  "description": "A single-repository agent plugin template for Codex, Claude Code, pi, Cursor, and OpenCode V2.",
+  "author": {
+    "name": "Your team"
+  },
+  "license": "MIT",
+  "skills": [
+    "./skills/"
+  ],
+  "agents": [
+    "./harnesses/claude/agents/implementer.md",
+    "./harnesses/claude/agents/reviewer.md"
+  ],
+  "hooks": "./harnesses/claude/hooks.json",
+  "mcpServers": "./.mcp.json",
+  "outputStyles": "./harnesses/claude/output-styles/"
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "example-agent-plugin",
+  "version": "0.1.0",
+  "description": "A single-repository agent plugin template for Codex, Claude Code, pi, Cursor, and OpenCode V2.",
+  "author": { "name": "Your team" },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": { "hooks": "./harnesses/codex/hooks.json" }
+  }
+}

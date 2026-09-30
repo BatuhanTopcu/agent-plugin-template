@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+import { readFile } from "node:fs/promises";
+
+// The build copies this executable to the plugin's root bin/ directory.
+const pluginRoot = new URL("../", import.meta.url);
+const metadata = JSON.parse(await readFile(new URL("package.json", pluginRoot), "utf8"));
+const features = JSON.parse(await readFile(new URL("features.json", pluginRoot), "utf8"));
+console.log(JSON.stringify({ name: metadata.name, version: metadata.version, claude: features.claude }, null, 2));

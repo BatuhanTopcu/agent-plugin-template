@@ -1,0 +1,8 @@
+[
+  {
+    "name": "working-tree",
+    "command": "node \"${CLAUDE_PLUGIN_ROOT}/harnesses/claude/monitor.mjs\"",
+    "description": "Report changes to the tracked Git working tree in the session's launch repository.",
+    "when": "on-skill-invoke:inspect-change"
+  }
+]

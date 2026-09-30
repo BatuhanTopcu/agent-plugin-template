@@ -1,0 +1,9 @@
+image: node:24.18.0
+
+validate:
+  stage: test
+  before_script:
+    - npm install --global pnpm@10.33.0
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm check

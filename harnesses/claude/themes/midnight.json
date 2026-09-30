@@ -1,0 +1,9 @@
+{
+  "name": "Example midnight",
+  "base": "dark",
+  "overrides": {
+    "claude": "#a78bfa",
+    "error": "#ef4444",
+    "success": "#22c55e"
+  }
+}

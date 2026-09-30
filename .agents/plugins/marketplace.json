@@ -1,0 +1,20 @@
+{
+  "name": "example-agent-plugin-marketplace",
+  "interface": {
+    "displayName": "example-agent-plugin plugins"
+  },
+  "plugins": [
+    {
+      "name": "example-agent-plugin",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

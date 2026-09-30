@@ -1,0 +1,39 @@
+{
+  "name": "example-agent-plugin",
+  "version": "0.1.0",
+  "description": "A single-repository agent plugin template for Codex, Claude Code, pi, Cursor, and OpenCode V2.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24.15"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "validate": "pnpm build && pnpm check"
+  },
+  "dependencies": {
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "0.99.1",
+    "@opencode/plugin": "2.0.20",
+    "@opencode/theme": "2.0.20",
+    "@types/node": "24.13.3",
+    "ajv": "8.20.0",
+    "typescript": "5.9.3"
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ],
+    "extensions": [
+      "./harnesses/pi/index.ts"
+    ],
+    "themes": [
+      "./harnesses/pi/themes"
+    ]
+  }
+}
