@@ -51,7 +51,7 @@ Edit `features.json`, run `pnpm build && pnpm check`, and reload the plugin or s
 | `claude.statusLine` | `false` | Displays each subagent's name, status, and context usage through a local stdin/stdout command. |
 | `pi.theme` | `false` | Applies the bundled `agent-plugin` theme in TUI mode and restores the previous theme on extension shutdown. |
 | `pi.ui` | `false` | Shows plugin resources in a TUI widget and delegation state in the status line. |
-| `opencode.theme` | `false` | Installation copies the bundled TUI theme and selects its dark variant when no TUI configuration exists. Existing theme settings require manual selection. |
+| `opencode.theme` | `false` | Installation copies the bundled TUI theme to `.opencode/themes/<plugin-name>.json`. Select it in the native theme menu or for one launch with `OPENCODE_CLI_CONFIG_CONTENT`; installation changes no theme setting. |
 | `opencode.ui` | `false` | TUI command palette offers `<plugin-name>: show plugin resources`, which opens a local resource-information dialog. |
 
 The flags control this repository's registrations and adapters. They do not enable unsupported host features, install binaries, set permissions, or configure a user's global settings. Theme and UI features affect interactive terminals only. [Claude components](https://code.claude.com/docs/en/plugins/components), [Claude output styles](https://code.claude.com/docs/en/output-styles), [Claude workflows](https://code.claude.com/docs/en/workflows), [pi extensions](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/extensions.md).

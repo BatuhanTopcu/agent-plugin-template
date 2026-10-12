@@ -20,7 +20,7 @@ assert.equal(new Set(resources.agents.map((agent) => agent.name)).size, resource
 for (const [path, expected] of await generatedFiles()) assert.equal(await readFile(join(root, path), 'utf8'), expected, `${path} is stale; run pnpm build`);
 const pkg = await readJson('package.json');
 for (const key of ['name', 'version', 'description', 'license']) assert.equal(pkg[key], resources.manifest[key], `package.json ${key} is stale`);
-for (const name of await readdir(join(root, 'skills'))) {
+for (const name of (await readdir(join(root, 'skills'), { withFileTypes: true })).filter((entry) => entry.isDirectory()).map((entry) => entry.name)) {
   const { metadata, body } = parseDocument(await readFile(join(root, 'skills', name, 'SKILL.md'), 'utf8'));
   assert.equal(metadata.name, name);
   assert(typeof metadata.description === 'string' && metadata.description.length && body);
@@ -55,8 +55,11 @@ assert(row.content.includes('1% context') && !row.content.includes('\n') && row.
 const allFeatures = Object.fromEntries(Object.entries(resources.features).map(([harness, flags]) => [harness, Object.fromEntries(Object.keys(flags).map((flag) => [flag, true]))]));
 const optionalFiles = await generatedFiles(allFeatures);
 const optionalClaude = JSON.parse(optionalFiles.get('.claude-plugin/plugin.json'));
-const statusOutput = execFileSync(optionalClaude.settings.subagentStatusLine.command, { shell: true, encoding: 'utf8', input: JSON.stringify({ tasks: [{ id: 'quoted', name: 'reviewer', status: 'running' }] }) });
-assert.equal(JSON.parse(statusOutput).id, 'quoted', 'Generated status-line shell quoting must work');
+// shortcut: the command uses POSIX quoting for Claude's Git Bash, which cmd.exe cannot run, so Linux CI covers it; add a Windows CI job to test it there.
+if (process.platform !== 'win32') {
+  const statusOutput = execFileSync(optionalClaude.settings.subagentStatusLine.command, { shell: true, encoding: 'utf8', input: JSON.stringify({ tasks: [{ id: 'quoted', name: 'reviewer', status: 'running' }] }) });
+  assert.equal(JSON.parse(statusOutput).id, 'quoted', 'Generated status-line shell quoting must work');
+}
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 // Native workflows permit exported metadata and a top-level return inside their async runtime.
 new AsyncFunction(optionalFiles.get('harnesses/claude/workflows/review-scope.js').replace('export const meta', 'const meta'));
@@ -94,6 +97,6 @@ try {
 } finally {
   await rm(temporary, { recursive: true, force: true });
 }
-execFileSync(join(root, 'node_modules/.bin/tsc'), ['--noEmit'], { cwd: root, stdio: 'inherit' });
+execFileSync(process.execPath, [join(root, 'node_modules/typescript/bin/tsc'), '--noEmit'], { cwd: root, stdio: 'inherit' });
 for (const harness of ['pi', 'opencode']) execFileSync(process.execPath, [join(root, `harnesses/${harness}/check.mjs`)], { cwd: root, stdio: 'inherit' });
 console.log('Validated portable schemas, generated packages, skill references, hooks, safe installation, and current SDK adapters.');
