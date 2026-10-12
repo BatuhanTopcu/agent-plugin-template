@@ -23,6 +23,10 @@ if (process.argv.includes('--print')) {
 } else {
   const root = fileURLToPath(new URL('../../', import.meta.url));
   const resources = await loadResources(root);
+  // Secrets referenced by mcp.json are not needed for this smoke check; scripts/check.mjs tests the missing-variable error.
+  for (const [, name] of JSON.stringify(resources.mcpServers).matchAll(/\$\{(\w+)\}/g)) {
+    if (name !== 'PLUGIN_ROOT' && name !== 'PLUGIN_DATA') process.env[name] ??= 'pnpm-check-placeholder';
+  }
   const servers = new Map();
   const handlers = new Map();
   const commands = new Map();

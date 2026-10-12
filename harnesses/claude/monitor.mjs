@@ -1,8 +1,9 @@
 import { execFile } from "node:child_process";
-import { realpath } from "node:fs/promises";
+import { readFile, realpath } from "node:fs/promises";
 import { promisify } from "node:util";
 
 const run = promisify(execFile);
+const { name } = JSON.parse(await readFile(new URL("../../plugin.json", import.meta.url), "utf8"));
 const launchDirectory = await realpath(process.cwd());
 const options = {
   cwd: launchDirectory,
@@ -16,7 +17,7 @@ let repository;
 try {
   repository = (await run("git", ["rev-parse", "--show-toplevel"], options)).stdout.trim();
 } catch {
-  console.error("example-agent-plugin: working-tree monitor requires a Git repository at the session's launch directory.");
+  console.error(`${name}: working-tree monitor requires a Git repository at the session's launch directory.`);
   process.exit(1);
 }
 
@@ -29,12 +30,12 @@ async function poll() {
     const status = (await run("git", ["status", "--porcelain=v1", "--untracked-files=no"], options)).stdout;
     if (status !== previous) {
       const count = status.trimEnd() ? status.trimEnd().split("\n").length : 0;
-      console.log(`example-agent-plugin: ${count} tracked path(s) changed in ${repository}`);
+      console.log(`${name}: ${count} tracked path(s) changed in ${repository}`);
       previous = status;
     }
     if (!process.argv.includes("--once")) timer = setTimeout(poll, 10000);
   } catch (error) {
-    console.error(`example-agent-plugin: working-tree monitor stopped: ${error.message}`);
+    console.error(`${name}: working-tree monitor stopped: ${error.message}`);
     process.exitCode = 1;
   }
 }
